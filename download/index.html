@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>久伴-时间是长情的告白</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-size: 100px;
+        width: 100%;
+        height: 100%;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        background-image: url(img/new/bg.jpg);
+        background-size: 100% 100%;
+    }
+
+    #head {
+        width: 100%;
+        height: 6vmax;
+        background-color: rgba(255, 255, 255, .6);
+        backdrop-filter: saturate(480%) blur(21px);
+        position: relative;
+        z-index: 100;
+    }
+
+    #head sign {
+        font-size: 4vmax;
+        font-weight: 900;
+        line-height: 6vmax;
+        margin: 0 2vmax;
+        position: absolute;
+        color: #fccb90;
+    }
+
+    menu {
+        width: 6vmax;
+        height: 6vmax;
+        background-image: url(img/new/menu.png);
+        background-size: 60% 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        right: 0;
+    }
+
+    menu div:nth-child(1) {
+        width: auto;
+        height: 0;
+        position: absolute;
+        top: 6vmax;
+        right: 0;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, .6);
+        transition: all .2s;
+    }
+
+    menu div option {
+        border-bottom: 2px solid white;
+        padding: 12px 32px;
+
+        font-size: 3vmax;
+        text-align: right;
+        color: #fccb90;
+        user-select: none;
+    }
+
+    menu div p {
+        color: #518C96;
+        background-color: rgba(255, 255, 255, .8);
+        border-radius: 0 0 12px 12px;
+        padding: 20px 50px;
+        display: block;
+        width: 60vw;
+        height: auto;
+        max-height: 70vh;
+        position: absolute;
+        top: -100vh;
+        right: calc(20vw - 50px);
+        font-size: .48rem;
+        --overflow-y: auto;
+        --overflow-x: hidden;
+        z-index: 100;
+        transition: all .2s;
+    }
+
+    menu div p close {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        color: white;
+        background-color: red;
+        position: absolute;
+        bottom: -40px;
+        right: -40px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 60px;
+        user-select: none;
+    }
+
+    menu div p span {
+        width: 100%;
+        height: auto;
+        max-height: calc(70vh - 40px);
+        overflow: auto;
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        overflow: auto;
+    }
+
+    #music {
+        background-image: url(img/new/音乐.png);
+        background-size: 100% 100%;
+        width: 120px;
+        height: 120px;
+        position: fixed;
+        margin-top: 120px;
+        margin-left: 20px;
+    }
+
+    #music div {
+        background-image: url(img/new/禁止.png);
+        background-size: 100% 100%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #music name {
+        display: block;
+        position: absolute;
+        left: 120px;
+        width: calc(100vw - 200px);
+        height: 120px;
+        padding: 0 20px;
+        font-size: .32rem;
+        line-height: 120px;
+        color: #434a54;
+    }
+
+    #heart {
+        position: relative;
+        height: 21vmin;
+        width: 21vmin;
+        background-image: url(img/new/心-信封.png);
+        background-size: cover;
+        top: 21vh;
+        left: calc(50% - 10.5vmin);
+        z-index: 10;
+    }
+
+    #heart #click {
+        display: block;
+        position: absolute;
+        font-size: 4.2vmin;
+        width: 25.2vmin;
+        top: 21vmin;
+        left: -2.1vmin;
+        user-select: none;
+        color: #434a54;
+    }
+
+    #heart:hover #click {
+        color: #ed5564;
+    }
+
+    #heart-paper {
+        position: absolute;
+        width: 0vmin;
+        height: 0vmin;
+        background-image: linear-gradient(#9ED9EB, #518C96);
+        padding: 52px 21px;
+        top: calc(10.5vmin - 25px);
+        left: calc(10.5vmin - 15px);
+        --border-radius: 6px;
+        box-shadow: 0 20px 20px 2px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+
+    #heart-paper::before,
+    #heart-paper::after {
+        position: absolute;
+        content: "";
+        box-shadow: 0 10px 25px 20px #518C96;
+        top: 40px;
+        left: 10px;
+        bottom: 50px;
+        width: 15%;
+        z-index: -1;
+        -webkit-transform: rotate(-2deg);
+        -moz-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+        background-color: #518C96;
+    }
+
+    #heart-paper::after {
+        -webkit-transform: rotate(2deg);
+        -moz-transform: rotate(2deg);
+        transform: rotate(2deg);
+        right: 10px;
+        left: auto;
+    }
+
+    #close {
+        position: absolute;
+        width: 60px;
+        height: 30px;
+        background-color: red;
+        border-radius: 50px;
+        box-shadow: -2px 2px 12px 2px rgba(0, 0, 0, .6);
+
+        font-size: 30px;
+        line-height: 30px;
+        color: white;
+        padding: 10px 20px;
+        right: -25px;
+        top: -25px;
+        display: none;
+        user-select: none;
+    }
+
+    .show {
+        animation: show .6s ease;
+        animation-fill-mode: forwards;
+    }
+
+    .close {
+        animation: close .6s ease;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes show {
+        0% {
+            width: 0;
+            height: 0;
+            top: calc(10.5vmin - 25px);
+            left: calc(10.5vmin - 15px);
+            font-size: 0;
+        }
+
+        100% {
+            width: 70vw;
+            height: 60vh;
+            left: calc(-35vw + 10.5vmin - 25px);
+            top: calc(-10.5vh + 10.5vmin - 15px - 6vmax);
+            font-size: .24rem;
+        }
+    }
+
+    @keyframes close {
+        0% {
+            width: 70vw;
+            height: 60vh;
+            left: calc(-35vw + 10.5vmin - 25px);
+            top: calc(-10.5vh + 10.5vmin - 15px - 6vmax);
+            font-size: .24rem;
+        }
+
+        100% {
+            width: 0;
+            height: 0;
+            top: calc(10.5vmin - 25px);
+            left: calc(10.5vmin - 15px);
+            font-size: 0;
+        }
+    }
+
+    #story {
+        border: 2px dashed white;
+        height: calc(100% - 40px);
+        overflow: auto;
+        padding: 20px;
+    }
+
+    #story p {
+        color: white;
+        font-size: .32rem;
+        line-height: .52rem;
+        font-weight: 100;
+        letter-spacing: 12px;
+        text-indent: .64rem;
+    }
+
+    #download {
+        width: calc(100% - 120px);
+        height: 30%;
+        position: absolute;
+        bottom: 0;
+        overflow: auto;
+        padding: 20px 60px;
+        text-align: center;
+        z-index: 0;
+    }
+
+    .download-once {
+        height: 1rem;
+        width: calc(100% - 120px);
+        max-width: 4rem;
+        margin: 10px 20px;
+        display: inline-block;
+        background-image: linear-gradient(45deg, #8fd3f4, #fccb90);
+        border-radius: 60px;
+
+        font-size: .32rem;
+        line-height: 1rem;
+        color: #5e8c96;
+        user-select: none;
+    }
+
+    .download-once:hover {
+        color: #fccb90;
+        background-image: linear-gradient(45deg, #8fd3f4, #8fd3f4);
+    }
+</style>
+
+<body>
+    <div>
+
+        <div id="head">
+            <sign>JuBan</sign>
+            <menu on="no">
+                <div>
+                    <option onclick="window.location.href='index-old.html'">使用旧版</option>
+                    <option class="get">故事征集</option>
+                    <option class="call">联系我们</option>
+                    <option class="about">关于</option>
+                </div>
+                <div>
+                    <p class="get">
+                        <span>
+                            如果你有好的故事，欢迎联系我们，展示你的故事。
+                        </span>
+                        <close>X</close>
+                    </p>
+                    <p class="call">
+                        <span>
+                            邮箱：2601721443@qq.com<br>
+                        </span>
+                        <close>X</close>
+                    </p>
+                    <p class="about">
+                        <span>
+                            <b>由来：</b><br>
+                            不知道是因为这个世界节奏越来越快，还是人本来就厌旧。
+                            人们在当前社会中，接受太多东西，时常忘记了从前的快乐，时常忘记了要守候的东西。
+                            我想尝试开发一个慢节奏的养成游戏，以让人们重新拾起耐心与长情。<br><br>
+                            <b>开发：</b><br>
+                            本作品由Fc_404完成开发<br>
+                            如有侵权，请联系我们。<br><br>
+                            <b>致谢：</b><br>
+                            小熊软糖<br>
+                            黑虎阿福<br>
+                            爬爬<br>
+                        </span>
+                        <close>X</close>
+                    </p>
+                </div>
+            </menu>
+        </div>
+        <div id="music">
+            <div></div>
+            <name></name>
+        </div>
+        <div id="heart">
+            <p id="click">点我查看故事</p>
+            <div id="heart-paper">
+                <div id="close">关闭</div>
+                <div id="story">
+                    <p>七夕，她给他发了一条讯息，他和她的火花从此开始。</p>
+                    <p>他本来性格孤僻，但见到她的讯息心花怒放，因为早在半年前见到她的那一面，心里就留下了种子，不过他心中有所戒备。</p>
+                    <P>她让他带她看电影，吃火锅，陪她玩好玩的，陪她吃好吃的，给她买好看的衣服，还换上了情侣头像，他的心有所触动，以为这是爱情，戒备也慢慢卸下。</P>
+                    <p>他越来越主动，分享他的日常，分享他的爱好，等待她的每一条讯息，可她似乎变得越来越忙。</p>
+                    <p>他曾多次梦中惊醒，只因梦见她换了头像，只因梦见她回了讯息，只因梦见她。</p>
+                    <p>终于，他再次戒备起来，从一次次窒息中戒备起来，他不明白，为什么人类拥有感情。</p>
+                    <p>也许是他感情观出现病态，</p>
+                    <p>也许是他自作多情了，</p>
+                    <p>也许是她没了新鲜感，</p>
+                    <p>也许只是腻了，</p>
+                    <p>烦了。</p>
+                    <p>他们到底怎么了。</p>
+                    <br>
+                    <br>
+                    <p>久伴，时间是最好的告白。</p>
+                    <br>
+                    <span
+                        style="color: brown; font-size: .28rem; display: inline-block; width: 100%; text-align: center;">故事纯属虚构，如有雷同，纯属巧合。</span>
+                </div>
+            </div>
+        </div>
+        <div id="download">
+            <div class="download-once" onclick="alert('暂未开发，请耐心等待。')">下载安卓版</div>
+            <div class="download-once" onclick="alert('暂未开发，请耐心等待。')">下载Windows版</div>
+            <div class="download-once" onclick="alert('暂未开发，请耐心等待。')">下载Linux版</div>
+        </div>
+    </div>
+</body>
+<script>
+    //tool
+    var temp = 'sign';
+    function mOk() {
+        document.getElementsByClassName('ok')[0].onclick = function () {
+            temp = document.getElementsByTagName('input')[0].value;
+            document.body.removeChild(document.getElementsByTagName('div')[0]);
+        }
+    }
+    function mCancel() {
+        document.getElementsByClassName('cancel')[0].onclick = function () {
+            document.body.removeChild(document.getElementsByTagName('div')[0]);
+        }
+    }
+    function checkCode(mTitle) {
+        var div = document.createElement('div');
+        document.body.insertBefore(div, document.body.childNodes[0]);
+        div.style.cssText = "position: fixed;width: 600px;height: 300px;border-radius: 12px;top: calc(50vh - 150px);left: calc(50vw - 300px);background-color: rgba(255, 255, 255, .8);z-index: 999999;";
+
+        var title = document.createElement('div');
+        div.insertBefore(title, div.childNodes[0]);
+        title.style.cssText = "position: relative;height: 100px;width: calc(100% - 80px);font-size: 36px;line-height: 100px;overflow: hidden;margin: 0 40px;"
+        title.innerText = mTitle;
+
+        var input = document.createElement('input');
+        div.insertBefore(input, div.childNodes[1]);
+        input.style.cssText = "border: none;border-bottom: 2px solid black;height: 60px;width: calc(100% - 104px);position: relative;display: block;margin: 0 40px;margin-bottom: 38px;background-color: transparent;outline: none;font-size: 32px;padding: 0 12px;"
+
+        var ok = document.createElement('div');
+        div.insertBefore(ok, div.childNodes[2]);
+        ok.style.cssText = "user-select: none;height: 100px;width: 299px;float: left;font-size: 36px;text-align: center;line-height: 100px;border-top: 2px solid gray;border-right: 1px solid gray;"
+        ok.innerText = '确认';
+        ok.classList = 'ok';
+
+        var cancel = document.createElement('div');
+        div.insertBefore(cancel, div.childNodes[3]);
+        cancel.style.cssText = "user-select: none;height: 100px;width: 299px;float: right;font-size: 36px;text-align: center;line-height: 100px;border-top: 2px solid gray;border-left: 1px solid gray;"
+        cancel.innerText = "取消";
+        cancel.classList = 'cancel';
+
+        mOk();
+        mCancel();
+        return temp;
+    }
+
+    //屏蔽故事
+    (function () {
+        var p = document.getElementById('story').getElementsByTagName('p');
+        for (var i = 1; i < p.length - 1; i++) {
+            p[i].style.display = 'none';
+        }
+
+        showStory = function () {
+            for (var i = 1; i < p.length - 1; i++)
+                p[i].style.display = 'block';
+        }
+    }());
+    //必要点击事件
+    (function () {
+        //heart点击
+        document.getElementById('heart').addEventListener('click', function () {
+            document.getElementById('heart-paper').style.display = 'block';
+            document.getElementById('heart-paper').classList.remove('close');
+            document.getElementById('heart-paper').classList.add('show');
+            setTimeout(function () {
+                document.getElementById('close').style.display = 'block';
+            }, 600);
+            event.stopPropagation();
+            //加密故事
+            if (document.getElementById('story').getElementsByTagName('p')[1].style.display == 'none')
+                setTimeout(function () {
+                    checkCode('想看完整版请询问开发者验证码');
+                    var time = setInterval(function (){
+                        if (btoa(temp) == 'MjQ1ODY5')
+                            showStory();
+                        if (temp != 'sign')
+                            clearInterval(time);
+                    }, 1000);
+                }, 5200);
+        }, false);
+        document.getElementById('close').addEventListener('click', function () {
+            document.getElementById('close').style.display = 'none';
+            document.getElementById('heart-paper').classList.remove('show');
+            document.getElementById('heart-paper').classList.add('close');
+            setTimeout(function () {
+                document.getElementById('heart-paper').style.display = 'none';
+            }, 600);
+            event.stopPropagation();
+        }, false);
+        //menu点击
+        var div = document.getElementsByTagName('menu')[0].getElementsByTagName('div');
+        var option = div[0].getElementsByTagName('option');
+        document.getElementsByTagName('menu')[0].onclick = function () {
+            if (this.getAttribute('on') == 'yes') {
+                div[0].style.height = '0';
+                this.setAttribute('on', 'no');
+            }
+            else {
+                div[0].style.height = option[0].scrollHeight * option.length + 'px';
+                this.setAttribute('on', 'yes');
+            }
+        }
+        //option点击
+        for (var i = 0; i < option.length; i++) {
+            option[i].onclick = function () {
+                if (this.classList.length <= 0)
+                    eval(this.getAttribute('onclick'));
+                div[1].getElementsByClassName(this.classList[0])[0].style.top = '6vmax';
+            }
+        }
+        for (var i = 0; i < div[1].getElementsByTagName('p').length; i++) {
+            div[1].getElementsByTagName('p')[i].getElementsByTagName('close')[0].onclick = function () {
+                this.parentElement.style.top = '-100vh'
+            }
+        }
+        //music点击
+        var musicUrl = 'K歌之王.mp3';
+        var music = new Audio(musicUrl);
+        music.play();
+        music.loop = true;
+        document.getElementById('music').getElementsByTagName('name')[0].innerText = musicUrl.replace('.mp3', '');
+        document.getElementById('music').onclick = function () {
+            if (this.getElementsByTagName('div')[0].style.display == 'block') {
+                this.getElementsByTagName('div')[0].style.display = 'none';
+                music.play();
+                this.getElementsByTagName('name')[0].style.display = 'block';
+                this.getElementsByTagName('name')[0].innerText = musicUrl.replace('.mp3', '');
+            }
+            else {
+                this.getElementsByTagName('div')[0].style.display = 'block';
+                music.pause();
+                this.getElementsByTagName('name')[0].style.display = 'none';
+            }
+        }
+    }());
+</script>
+
+</html>

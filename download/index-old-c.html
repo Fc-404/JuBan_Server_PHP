@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>久伴-时间是最好的告白</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-size: 100px;
+    }
+
+    body {
+        height: 100%;
+        width: 100%;
+    }
+
+    #canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    #background {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 0;
+    }
+
+    #icon {
+        position: absolute;
+        margin: 12vh;
+    }
+
+    #icon h1 {
+        font-size: 12vh;
+        font-weight: 900;
+        display: block;
+        width: auto;
+        color: black;
+        mix-blend-mode: screen;
+        background-color: rgba(255, 255, 255, .9);
+        padding: 20px;
+        border-radius: 6vh;
+    }
+
+    #icon p {
+        display: block;
+        padding: 12px 20px;
+        font-size: 6vh;
+        color: rgba(255, 255, 255, .9);
+    }
+
+    #background div {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: cover;
+    }
+
+    #download-android {
+        position: absolute;
+        bottom: 10vh;
+        left: calc(50% - 1.28rem - 48px);
+    }
+
+    #background p{
+        color: rgba(255, 255, 255, .8);
+        font-size: .48rem;
+        display: block;
+        position: absolute;
+        right: 100px;
+        top: 30vh;
+    }
+    #background span{
+        color: rgba(255, 255, 255, .8);
+        font-size: .28rem;
+        display: block;
+        position: absolute;
+        right: 100px;
+        top: calc(30vh + .8rem);
+    }
+
+    myButton {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: .64rem;
+        color: black;
+        background-color: white;
+        mix-blend-mode: screen;
+        border: none;
+        border-radius: 12px;
+        user-select: none;
+    }
+    myButton:hover {
+        color: #0084ff;
+    }
+    myButton:active {
+        background-color: #0084ff;
+        color: black;
+    }
+</style>
+
+<body>
+    <div id="canvas">
+        <div id="background">
+            <div class="movePic" style="background-image: url(img/c/01.jpg);">
+                <p>绿叶</p>
+                <span></span>
+            </div>
+            <div class="movePic" style="background-image: url(img/c/02.jpg);">
+                <p>夕阳</p>
+                <span></span>
+            </div>
+            <div class="movePic" style="background-image: url(img/c/03.jpg);">
+                <p>星空</p>
+                <span></span>
+            </div>
+            <div class="movePic" style="background-image: url(img/c/04.jpg);">
+                <p>白云</p>
+                <span></span>
+            </div>
+            <div class="movePic" style="background-image: url(img/c/05.jpg);">
+                <p>火焰</p>
+                <span></span>
+            </div>
+        </div>
+        <div id="icon">
+            <h1>Juban 久伴</h1>
+            <p>时间是最好的告白</p>
+        </div>
+        <div id="download">
+            <myButton id="download-android">下载安卓版</myButton>
+        </div>
+    </div>
+</body>
+<script>
+    //背景幻灯片
+    (function () {
+        var Obj = document.getElementsByClassName('movePic');
+        var thisPoint = 0;
+
+        function reZindex(point) {
+            for (var i = Obj.length; i > 0; i--) {
+                Obj[(i + point) % Obj.length].style.zIndex = i - 1;
+            }
+            thisPoint = point;
+        };
+        reZindex((Obj.length - 1));
+
+        function moveLogic() {
+            reZindex((thisPoint + 1) % Obj.length);
+            //回调函数
+            setTimeout(moveLogic, 6000);
+        };
+        moveLogic();
+    }());
+</script>
+</html>
