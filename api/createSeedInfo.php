@@ -30,15 +30,17 @@ if ($seedObj->findKey($_GET['A'])[$_GET['A']] == $_GET['seedId'] &&
     $seedInfoObj->setKeyValue('A', $_GET['A'], 'INFO');
     $seedInfoObj->setKeyValue('B', $_GET['B'], 'INFO');
     $seedInfoObj->setKeyValue('birthday', date("Y-m-d-H-i-s", time()), 'INFO');
+	$seedInfoObj->setKeyValue('love', '0', 'INFO');
 	$seedInfoObj->setKeyValue('index', '0', 'INFO');
+	$seedInfoObj->setKeyValue($_GET['A'].'mood', '开心', 'INFO');
+	$seedInfoObj->setKeyValue($_GET['B'].'mood', '开心', 'INFO');
     //CD
     $seedInfoObj->setKeyValue('watering', '0', 'CD');
     $seedInfoObj->setKeyValue('manure', '0', 'CD');
     $seedInfoObj->setKeyValue('debug', '0', 'CD');
     $seedInfoObj->setKeyValue('weeding', '0', 'CD');
     //DIARY
-    $seedInfoObj->setKeyValue('all',
-    date("Y-m-d-H-i-s", time()). '###'. 'leave'. '###'.'恭喜你们获得一颗神奇种子，开始你们的故事吧。',
+    $seedInfoObj->setKeyValue(date("Y-m-d-H-i-s", time()) , 'all###'. 'leave'. '###'.'恭喜你们获得一颗神奇种子，开始你们的故事吧。',
     'DIARY');
     echo('<return>true</return>');
     return;

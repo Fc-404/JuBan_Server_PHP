@@ -21,7 +21,7 @@ $missObj = $miss->findKey($_GET['id']);
 if ($missObj)
     echo("<return>true</return>
     <id>". $_GET['id'] ."</id>
-    <myId>". $missObj[$_GET['id']] ."</myId>");
+    <missId>". $missObj[$_GET['id']] ."</missId>");
 else
     echo('<return>false</return>');
 ?>

@@ -19,5 +19,6 @@ if ($_GET['key'] != $key->getKey()){
 $missObj = new mdIni('ini/miss.ini');
 if ($_GET['id'] != null){
     $missObj->delKey($_GET['id']);
+	echo('<return>true</return>');
 }
 ?>

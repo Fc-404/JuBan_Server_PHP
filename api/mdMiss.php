@@ -19,5 +19,6 @@ if ($_GET['key'] != $key->getKey()){
 $missObj = new mdIni('ini/miss.ini');
 if ($_GET['id'] != null && $_GET['myId'] != null){
     $missObj->setKeyValue($_GET['id'], $_GET['myId']);
+	echo('<return>true</return>');
 }
 ?>

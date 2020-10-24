@@ -19,5 +19,6 @@ if ($_GET['key'] != $key->getKey()){
 $needObj = new mdIni('ini/need.ini');
 if ($_GET['id'] != null){
     $needObj->delKey($_GET['id']);
+    echo('<return>true</return>');
 }
 ?>

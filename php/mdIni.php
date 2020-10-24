@@ -3,6 +3,7 @@ error_reporting(0);
 class mdIni
 {
     private $fileUrl;
+    public static $lock = 0;
 
     public function __construct($fileUrl)
     {
@@ -19,12 +20,14 @@ class mdIni
         $keyArr = parse_ini_file($this->fileUrl, true);
         //print_r($keyArr);
         if ($group != '') {
-            if ($key != '')
+            if ($key != ''){
                 return (is_null($keyArr[$group][$key]) ? false : $keyArr[$group][$key]);
+            }
             return (is_null($keyArr[$group]) ? false : $keyArr[$group]);
         }
-        if ($key != '')
+        if ($key != ''){
             return (is_null($keyArr[$key]) ? false : $keyArr[$key]);
+        }
         return (is_null($keyArr) ? false : $keyArr);
     }
 
@@ -39,8 +42,9 @@ class mdIni
             } else {
                 $keyArr[$group][$key] = $value;
             }
-        } else
+        } else{
             return;
+        }
 
         copy($this->fileUrl, $this->fileUrl . '.bak');
         $file = fopen($this->fileUrl, 'r+');
@@ -80,8 +84,9 @@ class mdIni
     public function findKey($key)
     {
         $keyArr = parse_ini_file($this->fileUrl);
-        if (array_key_exists($key, $keyArr))
+        if (array_key_exists($key, $keyArr)){
             return array($key => $keyArr[$key]);
+        }
         return false;
     }
 
@@ -90,12 +95,14 @@ class mdIni
     {
         $keyArr = parse_ini_file($this->fileUrl, true);
         if ($group == '') {
-            if (!array_key_exists($key, $keyArr))
+            if (!array_key_exists($key, $keyArr)){
                 return false;
+            }
             unset($keyArr[$key]);
         } else {
-            if (!array_key_exists($key, $keyArr[$group]))
+            if (!array_key_exists($key, $keyArr[$group])){
                 return false;
+            }
             unset($keyArr[$group][$key]);
         }
 

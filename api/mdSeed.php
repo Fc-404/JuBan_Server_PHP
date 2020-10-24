@@ -19,5 +19,6 @@ if ($_GET['key'] != $key->getKey()){
 $seedObj = new mdIni('ini/seed.ini');
 if ($_GET['id'] != null && $_GET['seedId'] != null){
     $seedObj->setKeyValue($_GET['id'], $_GET['seedId']);
+    echo('<return>true</return>');
 }
 ?>

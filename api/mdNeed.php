@@ -19,5 +19,6 @@ if ($_GET['key'] != $key->getKey()){
 $needObj = new mdIni('ini/need.ini');
 if ($_GET['id'] != null && $_GET['sign'] != null){
     $needObj->setKeyValue($_GET['id'], $_GET['sign']);
+	echo('<return>true</return>');
 }
 ?>

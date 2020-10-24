@@ -1,7 +1,7 @@
 <?php
 /**
  * mdSeedInfo templet
- * .../Juban/api/mdSeedInfo.php?seedId=###&type=###&value=###&key=md5('fc' . 'i')
+ * .../Juban/api/mdSeedInfo.php?seedId=###&id=###&type=###&value=###&key=md5('fc' . 'i')
  */
 
 include_once('../php/key.php');
@@ -19,14 +19,22 @@ if ($_GET['key'] != $key->getKey()){
 $fileUrl = '../ini/seed/'. $_GET['seedId']. '.ini';
 if (file_exists($fileUrl)){
     //功能注册
+    $INFO = array("mood", "pendant", "love");
     $CD = array("watering", "manure", "debug", "weeding");
     //
-    if (!in_array($_GET['type'], $CD)){
-        echo('<return>false</return>');
-        return;
-    }
     $seedInfoObj = new mdIni('ini/seed/'. $_GET['seedId']. '.ini');
-    $seedInfoObj->setKeyValue($_GET['type'], $_GET['value'], 'CD');
+    if (in_array($_GET['type'], $INFO)){
+        if ($_GET['type'] == "mood"){
+            $seedInfoObj->setKeyValue($_GET['id'].$_GET['type'], $_GET['value'], 'INFO');
+        }else 
+            $seedInfoObj->setKeyValue($_GET['type'], $_GET['value'], 'INFO');
+    }else if(in_array($_GET['type'], $CD)){
+        $seedInfoObj->setKeyValue($_GET['type'], $_GET['value'], 'CD');
+    }else{
+        echo('<return>false</return>');
+    }
+    $seedInfoObj->addKeyValue(date("Y-m-d-H-i-s", time()),
+    $_GET['id'] . '###'. $_GET['type']. '###'. $_GET['value']  );
     echo('<return>true</return>');
     return;
 }

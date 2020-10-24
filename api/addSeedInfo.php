@@ -35,8 +35,8 @@ if (file_exists($fileUrl)){
         return;
     }
     
-    $seedInfoObj->addKeyValue($_GET['id'],
-    date("Y-m-d-H-i-s", time()). '###'. $_GET['type']. '###'.$_GET['value']  );
+    $seedInfoObj->addKeyValue(date("Y-m-d-H-i-s", time()),
+    $_GET['id'] . '###'. $_GET['type']. '###'. $_GET['value']  );
     echo('<return>true</return>');
     return;
 }
