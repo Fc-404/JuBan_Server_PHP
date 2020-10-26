@@ -20,5 +20,7 @@ $seedObj = new mdIni('ini/seed.ini');
 if ($_GET['id'] != null){
     $seedObj->delKey($_GET['id']);
     echo('<return>true</return>');
+    return;
 }
+echo('<return>false</return>');
 ?>
